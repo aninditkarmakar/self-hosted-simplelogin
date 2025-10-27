@@ -1,0 +1,1 @@
+[smtp.relay.host]:587 smtp-username:smtp-password

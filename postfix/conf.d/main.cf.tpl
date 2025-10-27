@@ -14,11 +14,19 @@ readme_directory = no
 # fresh installs.
 compatibility_level = 2
 
+# SMTP Relay Service
+relayhost = [smtp.relay.host]:587
+smtp_sasl_password_maps = lmdb:/etc/postfix/conf.d/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_sasl_auth_enable = yes
+
 # TLS parameters
 smtpd_tls_cert_file=/etc/acme.sh/*.domain.tld_ecc/fullchain.cer
 smtpd_tls_key_file=/etc/acme.sh/*.domain.tld_ecc/*.domain.tld.key
 smtpd_tls_session_cache_database = lmdb:${data_directory}/smtpd_scache
 smtp_tls_session_cache_database = lmdb:${data_directory}/smtp_scache
+smtp_use_tls = yes
+smtp_tls_note_starttls_offer = yes
 smtp_tls_security_level = may
 smtpd_tls_security_level = may
 
