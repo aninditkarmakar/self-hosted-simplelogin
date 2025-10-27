@@ -1,6 +1,6 @@
 # STAGE 0: use base image from Docker Hub and upgrade the existing packages
 # ================================
-ARG IMAGE_TAG="${IMAGE_TAG:-3.18}"
+ARG IMAGE_TAG="${IMAGE_TAG:-3.22.2}"
 FROM alpine:${IMAGE_TAG} AS base
 
 RUN apk --no-cache upgrade --purge
@@ -16,7 +16,7 @@ CMD ["/bin/sh"]
 FROM alpine AS postfix
 
 # install dependencies
-RUN apk --no-cache add postfix postfix-pgsql
+RUN apk add --no-cache postfix postfix-pgsql cyrus-sasl cyrus-sasl-login
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
