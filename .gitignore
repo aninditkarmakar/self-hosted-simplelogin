@@ -21,3 +21,4 @@ postfix/conf.d/virtual.lmdb
 postfix/conf.d/virtual-regexp
 postfix/conf.d/sasl_passwd
 postfix/conf.d/sasl_passwd.lmdb
+postfix/conf.d/canonical-sender

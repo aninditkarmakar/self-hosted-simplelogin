@@ -19,6 +19,7 @@ inet_protocols = ipv4
 # SMTP Relay Service
 relayhost = [smtp.relay.host]:587
 smtp_sasl_password_maps = lmdb:/etc/postfix/conf.d/sasl_passwd
+sender_canonical_maps = regexp:/etc/postfix/conf.d/canonical-sender
 smtp_sasl_security_options = noanonymous
 smtp_sasl_auth_enable = yes
 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt

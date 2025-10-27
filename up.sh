@@ -10,6 +10,7 @@ DOMAIN=$(grep "^DOMAIN" .env | awk -F '=' '{print $2}')
 AZURE_SMTP_RELAY_HOST=$(grep "^AZURE_SMTP_RELAY_HOST" .env | awk -F '=' '{print $2}')
 AZURE_SMTP_RELAY_USERNAME=$(grep "^AZURE_SMTP_RELAY_USERNAME" .env | awk -F '=' '{print $2}')
 AZURE_SMTP_RELAY_PASSWORD=$(grep "^AZURE_SMTP_RELAY_PASSWORD" .env | awk -F '=' '{print $2}')
+AZURE_SMTP_RELAY_MAILFROM=$(grep "^AZURE_SMTP_RELAY_MAILFROM" .env | awk -F '=' '{print $2}')
 SUBDOMAIN=$(grep "^SUBDOMAIN" .env | awk -F '=' '{print $2}')
 PG_USERNAME=$(grep "^POSTGRES_USER" .env | awk -F '=' '{print $2}')
 PG_PASSWORD=$(grep "^POSTGRES_PASSWORD" .env | awk -F '=' '{print $2}')
@@ -35,6 +36,9 @@ if [ ! -f ./postfix/conf.d/virtual-regexp ]; then
 fi
 if [ ! -f ./postfix/conf.d/sasl_passwd ]; then
   sed -e "s/smtp.relay.host/${AZURE_SMTP_RELAY_HOST}/g" -e "s/smtp-username/${AZURE_SMTP_RELAY_USERNAME}/g" -e "s/smtp-password/${AZURE_SMTP_RELAY_PASSWORD}/g" ./postfix/conf.d/sasl_passwd.cf.tpl > ./postfix/conf.d/sasl_passwd
+fi
+if [ ! -f ./postfix/conf.d/canonical-sender ]; then
+  sed -e "s/smtp-relay-mailfrom/${AZURE_SMTP_RELAY_MAILFROM}/g" ./postfix/conf.d/canonical-sender.tpl > ./postfix/conf.d/canonical-sender
 fi
 
 sed -e "s/myuser/${PG_USERNAME}/g" ./postfix/conf.d/pgsql-relay-domains.cf.tpl >./postfix/conf.d/pgsql-relay-domains.cf
