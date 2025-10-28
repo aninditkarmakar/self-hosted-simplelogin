@@ -41,7 +41,7 @@ alias_maps = lmdb:/etc/postfix/conf.d/aliases
 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 10.0.0.0/24
 
 # set domain here
-myhostname = app.domain.tld
+myhostname = domain.tld
 mydomain = domain.tld
 myorigin = domain.tld
 
