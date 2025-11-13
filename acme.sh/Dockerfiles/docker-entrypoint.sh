@@ -24,14 +24,14 @@ request_server_certificate() {
   if [ $challenge = 'HTTP-01' ]; then
 
     echo 'Requesting bootstrap certificates using HTTP-01 ACME challenge'
-    params=( "${params[@]}" --domain $DOMAIN --domain $SUBDOMAIN.$DOMAIN --domain mta-sts.$DOMAIN \ --webroot /var/www/ )
+    params=( "${params[@]}" --domain $ROOT_DOMAIN --domain $DOMAIN --domain $SUBDOMAIN.$DOMAIN --domain mta-sts.$DOMAIN \ --webroot /var/www/ )
 
   fi
 
   if [ $challenge = 'DNS-01' ]; then
 
     echo "Requesting bootstrap $server certificates using DNS-01 ACME challenge using acme.sh DNS API"
-    params=( "${params[@]}" --domain *.$DOMAIN --domain $DOMAIN --dns $dns_api )
+    params=( "${params[@]}" --domain *.$ROOT_DOMAIN --domain $ROOT_DOMAIN --domain *.$DOMAIN --domain $DOMAIN --dns $dns_api )
 
   fi
 
@@ -47,12 +47,17 @@ renew_server_certificate() {
   acme.sh --cron
 }
 
-directory_path="/root/.acme.sh/*.${DOMAIN}_ecc"
+echo "ROOT_DOMAIN = ${ROOT_DOMAIN}"
+directory_path="/root/.acme.sh/*.${ROOT_DOMAIN}_ecc"
+echo "directory_path = ${directory_path}"
+
 if [ $challenge = 'HTTP-01' ]; then
-  directory_path="/root/.acme.sh/${DOMAIN}_ecc"
+  directory_path="/root/.acme.sh/${ROOT_DOMAIN}_ecc"
 fi
 
 [ -d "$directory_path" ] || request_server_certificate
+
+[ ! -f "/etc/nginx/conf.d/nginx" ] || mv /etc/nginx/conf.d/nginx /etc/nginx/conf.d/default.conf
 
 trap exit TERM
 while :

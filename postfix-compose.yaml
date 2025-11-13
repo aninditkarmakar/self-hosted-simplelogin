@@ -17,6 +17,8 @@ services:
     ports:
       - '25:25'
       - '587:587'
+    dns:
+      - 8.8.8.8
     volumes:
       - ./postfix/conf.d/:/etc/postfix/conf.d:rw
       - ./acme.sh/conf.d/:/etc/acme.sh/:ro

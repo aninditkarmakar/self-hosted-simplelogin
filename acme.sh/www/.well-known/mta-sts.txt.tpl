@@ -1,4 +1,4 @@
 version: STSv1
 mode: testing
-mx: app.domain.tld
+mx: domain.tld
 max_age: 86400

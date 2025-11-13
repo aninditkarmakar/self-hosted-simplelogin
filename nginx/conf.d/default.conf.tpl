@@ -7,8 +7,8 @@ server {
     listen [::]:443 ssl;
     http2 on;
 
-    ssl_certificate /etc/acme.sh/*.domain.tld_ecc/fullchain.cer; # issued by acme.sh
-    ssl_certificate_key /etc/acme.sh/*.domain.tld_ecc/*.domain.tld.key; # issued by acme.sh
+    ssl_certificate /etc/acme.sh/*.rootdomain.tld_ecc/fullchain.cer; # issued by acme.sh
+    ssl_certificate_key /etc/acme.sh/*.rootdomain.tld_ecc/*.rootdomain.tld.key; # issued by acme.sh
 
     include /etc/nginx/ssl/options-ssl-nginx.conf;
     ssl_dhparam /etc/nginx/ssl/ssl-dhparams.pem;
@@ -25,8 +25,8 @@ server {
     listen [::]:443 ssl;
     http2 on;
 
-    ssl_certificate /etc/acme.sh/*.domain.tld_ecc/fullchain.cer; # issued by acme.sh
-    ssl_certificate_key /etc/acme.sh/*.domain.tld_ecc/*.domain.tld.key; # issued by acme.sh
+    ssl_certificate /etc/acme.sh/*.rootdomain.tld_ecc/fullchain.cer; # issued by acme.sh
+    ssl_certificate_key /etc/acme.sh/*.rootdomain.tld_ecc/*.rootdomain.tld.key; # issued by acme.sh
 
     include /etc/nginx/ssl/options-ssl-nginx.conf;
     ssl_dhparam /etc/nginx/ssl/ssl-dhparams.pem;
@@ -65,8 +65,8 @@ server {
     listen 443 ssl;
     http2 on;
 
-    ssl_certificate /etc/acme.sh/*.domain.tld_ecc/fullchain.cer; # issued by acme.sh
-    ssl_certificate_key /etc/acme.sh/*.domain.tld_ecc/*.domain.tld.key; # issued by acme.sh
+    ssl_certificate /etc/acme.sh/*.rootdomain.tld_ecc/fullchain.cer; # issued by acme.sh
+    ssl_certificate_key /etc/acme.sh/*.rootdomain.tld_ecc/*.rootdomain.tld.key; # issued by acme.sh
 
     include /etc/nginx/ssl/options-ssl-nginx.conf;
     ssl_dhparam /etc/nginx/ssl/ssl-dhparams.pem;
