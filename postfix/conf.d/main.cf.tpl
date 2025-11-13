@@ -45,8 +45,20 @@ myhostname = domain.tld
 mydomain = domain.tld
 myorigin = domain.tld
 
+# Only accept local mail for localhost, not for the main domain
+# The main domain is handled as a relay domain by SimpleLogin
+mydestination = localhost
+
 relay_domains = pgsql:/etc/postfix/conf.d/pgsql-relay-domains.cf
 transport_maps = pgsql:/etc/postfix/conf.d/pgsql-transport-maps.cf
+
+# Disable local recipient map checking
+# SimpleLogin handles all recipient validation
+local_recipient_maps =
+
+# Disable local recipient map checking for relay domains
+# SimpleLogin handles recipient validation
+relay_recipient_maps =
 
 # HELO restrictions
 smtpd_delay_reject = yes
