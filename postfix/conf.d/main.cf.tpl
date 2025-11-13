@@ -25,8 +25,8 @@ smtp_sasl_auth_enable = yes
 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
 
 # TLS parameters
-smtpd_tls_cert_file=/etc/acme.sh/*.domain.tld_ecc/fullchain.cer
-smtpd_tls_key_file=/etc/acme.sh/*.domain.tld_ecc/*.domain.tld.key
+smtpd_tls_cert_file=/etc/acme.sh/*.rootdomain.tld_ecc/fullchain.cer
+smtpd_tls_key_file=/etc/acme.sh/*.rootdomain.tld_ecc/*.rootdomain.tld.key
 smtpd_tls_session_cache_database = lmdb:${data_directory}/smtpd_scache
 smtp_tls_session_cache_database = lmdb:${data_directory}/smtp_scache
 smtp_use_tls = yes
@@ -38,7 +38,7 @@ smtpd_tls_security_level = may
 # information on enabling SSL in the smtp client.
 
 alias_maps = lmdb:/etc/postfix/conf.d/aliases
-mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 10.0.0.0/24
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 10.0.10.0/24
 
 # set domain here
 myhostname = domain.tld

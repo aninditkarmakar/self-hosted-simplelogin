@@ -7,6 +7,7 @@ ere_quote() {
 }
 
 DOMAIN=$(grep "^DOMAIN" .env | awk -F '=' '{print $2}')
+ROOT_DOMAIN=$(grep "^ROOT_DOMAIN" .env | awk -F '=' '{print $2}')
 SMTP_RELAY_HOST=$(grep "^SMTP_RELAY_HOST" .env | awk -F '=' '{print $2}')
 SMTP_RELAY_USERNAME=$(grep "^SMTP_RELAY_USERNAME" .env | awk -F '=' '{print $2}')
 SMTP_RELAY_PASSWORD=$(grep "^SMTP_RELAY_PASSWORD" .env | awk -F '=' '{print $2}')
@@ -23,10 +24,10 @@ sed -e "s/domain.tld/${DOMAIN}/g" ./acme.sh/www/.well-known/mta-sts.txt.tpl >./a
 
 if [ ! -f ./nginx/conf.d/default.conf ]; then
   sed -e "s/app.domain.tld/${SUBDOMAIN}.${DOMAIN}/g" -e "s/domain.tld/${DOMAIN}/g" ./nginx/conf.d/default-init.conf.tpl > ./nginx/conf.d/default.conf
-  sed -e "s/app.domain.tld/${SUBDOMAIN}.${DOMAIN}/g" -e "s/domain.tld/${DOMAIN}/g" ./nginx/conf.d/default.conf.tpl > ./nginx/conf.d/nginx
+  sed -e "s/app.domain.tld/${SUBDOMAIN}.${DOMAIN}/g" -e "s/rootdomain.tld/${ROOT_DOMAIN}/g" -e "s/domain.tld/${DOMAIN}/g" ./nginx/conf.d/default.conf.tpl > ./nginx/conf.d/nginx
 fi
 
-sed -e "s/app.domain.tld/${SUBDOMAIN}.${DOMAIN}/g" -e "s/domain.tld/${DOMAIN}/g" -e "s/smtp.relay.host/${SMTP_RELAY_HOST}/g" ./postfix/conf.d/main.cf.tpl > ./postfix/conf.d/main.cf
+sed -e "s/app.domain.tld/${SUBDOMAIN}.${DOMAIN}/g" -e "s/rootdomain.tld/${ROOT_DOMAIN}/g" -e "s/domain.tld/${DOMAIN}/g" -e "s/smtp.relay.host/${SMTP_RELAY_HOST}/g" ./postfix/conf.d/main.cf.tpl > ./postfix/conf.d/main.cf
 
 if [ ! -f ./postfix/conf.d/virtual ]; then
   sed -e "s/domain.tld/${DOMAIN}/g" ./postfix/conf.d/virtual.tpl > ./postfix/conf.d/virtual
