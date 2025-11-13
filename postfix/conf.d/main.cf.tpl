@@ -16,13 +16,14 @@ compatibility_level = 2
 
 inet_protocols = ipv4
 
-# SMTP Relay Service
-relayhost = [smtp.relay.host]:587
-smtp_sasl_password_maps = lmdb:/etc/postfix/conf.d/sasl_passwd
-sender_canonical_maps = regexp:/etc/postfix/conf.d/canonical-sender
-smtp_sasl_security_options = noanonymous
-smtp_sasl_auth_enable = yes
-smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+# SMTP Relay Service - Disabled (sending directly)
+# If you need to use an SMTP relay, uncomment and configure:
+# relayhost = [smtp.relay.host]:587
+# smtp_sasl_password_maps = lmdb:/etc/postfix/conf.d/sasl_passwd
+# sender_canonical_maps = regexp:/etc/postfix/conf.d/canonical-sender
+# smtp_sasl_security_options = noanonymous
+# smtp_sasl_auth_enable = yes
+# smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
 
 # TLS parameters
 smtpd_tls_cert_file=/etc/acme.sh/*.rootdomain.tld_ecc/fullchain.cer
